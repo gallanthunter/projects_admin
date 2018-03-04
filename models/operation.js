@@ -15,7 +15,19 @@ Project.create(doc, function (err, project) {
 });
 
 // 项目
-Project.save();
+function createProject(p) {
+    return project.create(p).exec()
+};
+
+// function getComments (postId) {
+//     return Comment
+//         .find({ postId: postId })
+//         .populate({ path: 'author', model: 'User' })
+//         .sort({ _id: 1 })
+//         .addCreatedAt()
+//         .contentToHtml()
+//         .exec()
+// };
 
 // 运营商
 //
