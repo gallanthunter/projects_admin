@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -42,5 +43,26 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// 连接mongodb
+const options = {
+    autoIndex: false, // Don't build indexes
+    reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
+    reconnectInterval: 500, // Reconnect every 500ms
+    poolSize: 10, // Maintain up to 10 socket connections
+    // If not connected, return errors immediately rather than waiting for reconnect
+    bufferMaxEntries: 0
+};
+const mongoUri = 'mongodb://localhost/projectdb';
+mongoose.connect(mongoUri, options);
+
+// 实例化连接对象
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, '连接错误：'));
+db.once('open', (callback) = > {
+    console.log('MongoDB连接成功！！')
+})
+;
+
 
 module.exports = app;
