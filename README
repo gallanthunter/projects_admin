@@ -1,5 +1,5 @@
 1.启动mongodb
-mongod --dbpath /User/xiajing/mongodb/projectdb
+mongod --dbpath /Users/xiajing/mongodb/projectdb
 
 2.连接mongodb
 mongo --host 127.0.0.1:27017

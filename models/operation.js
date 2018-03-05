@@ -1,16 +1,11 @@
 var mongoose = require('mongoose');
-var project = require('project');
-require('operator');
-require('region')
-require('sgement-market');
-require('scenario');
-require('projectOperator');
-require('projectRegion');
-require('projectScenario');
-require('projectSgementMarket');
+var project = require('./project');
+require('./operator');
+require('./region')
+require('./sgement-market');
+require('./scenario');
 
-
-Project.create(doc, function (err, project) {
+project.create(function (err, project) {
     if (err) return handleError(err);
 });
 
@@ -19,6 +14,9 @@ function createProject(p) {
     return project.create(p).exec()
 };
 
+function getProject() {
+
+}
 // function getComments (postId) {
 //     return Comment
 //         .find({ postId: postId })
