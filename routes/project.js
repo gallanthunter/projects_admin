@@ -4,7 +4,7 @@ var projectModel = require('../models/project');
 
 // create project
 router.post('/project', function (req, res) {
-    projectModel.project.create(req.body, (err, project) = > {
+    projectModel.create(req.body, (err, project) = > {
         if(err) {
             console.log(err);
             res.json(err)
@@ -17,11 +17,11 @@ router.post('/project', function (req, res) {
 });
 
 router.get('/project', function (req, res) {
-    projectModel.Project.find({})
+    projectModel.find({})
         .sort({update_at: -1})
         .then(projects = > {
         console.log(projects);
-    console.log(Date.now() + 'This is get message!')
+    console.log(Date.now() + '\tThis is get message!')
     res.json(projects)
 })
 .
