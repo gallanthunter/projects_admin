@@ -1,108 +1,121 @@
 var express = require('express');
 var router = express.Router();
-var projectModel = require('../models/project');
+var Project = require('../models/project');
 
 // create project
-router.post('/project', function (req, res) {
-    projectModel.create(req.body, (err, project) = > {
+router.post('/projects', function (req, res) {
+    Project.create(req.body, function (err, project) {
         if(err) {
             console.log(err);
             res.json(err)
         }
         else {
             console.log('save success');
-    res.json(project);
-}
-})
+            res.json(project);
+        }
+    })
 });
 
-router.get('/project', function (req, res) {
-    projectModel.find({})
+router.get('/projects', function (req, res) {
+    Project.find({})
         .sort({update_at: -1})
-        .then(projects = > {
-        console.log(projects);
-    console.log(Date.now() + '\tThis is get message!')
-    res.json(projects)
+        .then(function (projects) {
+            res.json(projects)
+        })
+        .catch(function (err) {
+            res.json(err)
+        })
+});
+
+router.get('/projects/:operator', function (req, res) {
+    Project.findByOperator(res.params.operator)
+        .then(function (projects) {
+            res.json(projects);
+        })
+        .catch(function (err) {
+            res.json(err)
+        })
+});
+
+router.get('/projects/:region', function (req, res) {
+    Project.findByRegion(res.params.region)
+        .then(function (projects) {
+            res.json(projects);
+        })
+        .catch(function (err) {
+            res.json(err)
+        })
+});
+
+router.get('/projects/:marketSeg', function (req, res) {
+    Project.findByMarketSeg(res.params.marketSegment)
+        .then(function (projects) {
+            res.json(projects);
+        })
+        .catch(function (err) {
+            res.json(err)
+        })
+});
+
+router.get('/projects/:scenario', function (req, res) {
+    Project.findByScenario(res.params.scenario)
+        .then(function (projects) {
+            res.json(projects);
+        })
+        .catch(function (err) {
+            res.json(err)
+        })
+});
+
+router.get('/projects/:status', function (req, res) {
+    Project.findByStatus(res.params.status)
+        .then(function (projects) {
+            res.json(projects);
+        })
+        .catch(function (err) {
+            res.json(err)
+        })
+});
+
+router.put('/projects/:id', function (req, res) {
+    Project.findOneAndUpdate({_id: req.params._id}
+        , {
+            $set: {
+                name: req.body.name,
+                region: req.body.region,
+                operator: req.body.operator,
+                marketSegment: req.body.marketSegment,
+                scenario: req.body.scenario,
+                status: req.body.status,
+                applicationPartner: req.body.applicationPartner,
+                devicePartner: req.body.devicePartner,
+                owner: req.body.owner
+            },
+    {
+        new
+    :
+        true
+    }
 })
 .
-    catch(err = > {
-        console.log(err);
-    res.json(err)
+    then(function (projects) {
+        res.json(projects);
+    })
+        .catch(function (err) {
+            res.json(err);
+        })
 })
-});
 
-router.get('/project/:operator', function (req, res) {
-    console.log("********")
-});
-
-router.get('/project/:region', function (req, res) {
-
-});
-
-router.get('/project/:sgmarket', function (req, res) {
-
-});
-
-router.get('/project/:scenario', function (req, res) {
-
-});
-
-// // 通过ObjectId查询单个电影
-// router.get('/movie/:id', (req, res) => {
-//     Movie.findById(req.params.id)
-//     .then(movie => {
-//     res.json(movie)
-// })
-// .catch(err => {
-//     res.json(err)
-// })
-// })
-// // 添加一部电影
-// router.post('/movie', (req, res) => {
-//     //使用Movie model上的create方法储存数据
-//     Movie.create(req.body, (err, movie) => {
-//     if (err) {
-//         res.json(err)
-//     } else {
-//         res.json(movie)
-// }
-// })
-// //使用实例的save方法存储数据
-// // let movie = new Movie({
-// //   title : req.body.title,
-// //   year : req.body.year,
-// //   poster : req.body.poster,
-// //   introduction : req.body.introduction
-// // })
-// // movie.save( (err,movie) => {
-// //   if (err) {
-// //     res.json(err)
-// //   } else {
-// //     res.json(movie)
-// //   }
-// // })
-// })
-// //更新一部电影
-// router.put('/movie/:id',(req,res) => {
-//     Movie.findOneAndUpdate({ _id : req.params.id}
-//     ,{ $set : { title: req.body.title,
-//             rating : req.body.rating,
-//             poster : req.body.poster,
-//             introduction : req.body.introduction }
-//     },{
-//         new : true
-//     })
-//     .then(movie => res.json(movie))
-// .catch(err => res.json(err))
-// })
-// //删除一部电影
-// router.delete('/movie/:id',(req,res) => {
-//     Movie.findOneAndRemove({
-//     _id : req.params.id
-// })
-//     .then(movie => res.send(`${movie.title}删除成功`))
-// .catch(err => res.json(err))
-// })
-
+router.delete('/projects/:id', function (res, req) {
+    Project.findOneAndRemove({
+        _id: req.params._id
+    })
+        .then(function (project) {
+            res.json('${project.title}删除成功')
+        })
+        .catch(function (err) {
+            res.json(err)
+        })
+})
 
 module.exports = router;

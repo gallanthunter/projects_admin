@@ -61,7 +61,7 @@ mongoose.connect(mongoUri, options);
 // 实例化连接对象
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, '连接错误：'));
-db.once('open', (callback) = > {
+db.once('open', function () {
     console.log('MongoDB连接成功！！')
 })
 ;
