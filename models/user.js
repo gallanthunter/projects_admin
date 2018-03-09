@@ -1,12 +1,12 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema;
 
-var accountSchema = new Schema({
+var userSchema = new Schema({
     userId: {type: String},
     name: {type: String},
     email: {type: String},
     group: {type: String, enum: ['admin']}
 });
-accountSchema.index({projectId: 1});
+accountSchema.index({userId: 1});
 
-module.exports = mongoose.model('ProjectOperator', projectOperatorSchema);
+module.exports = mongoose.model('User', userSchema);
