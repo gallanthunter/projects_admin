@@ -27,6 +27,7 @@ router.get('/projects', function (req, res) {
         })
 });
 
+
 router.get('/projects/:operator', function (req, res) {
     Project.findByOperator(res.params.operator)
         .then(function (projects) {
