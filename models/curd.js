@@ -19,6 +19,7 @@ exports.addData = function (model, conditions, callback) {
 
 };
 
+
 /**
  * 公共update方法
  * @param model 要操作数据库的模型

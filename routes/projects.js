@@ -90,12 +90,9 @@ router.put('/projects/:id', function (req, res) {
                 applicationPartner: req.body.applicationPartner,
                 devicePartner: req.body.devicePartner,
                 owner: req.body.owner
-            },
-    {
-        new
-    :
-        true
-    }
+            }
+        }, {
+            new: true
 })
 .
     then(function (projects) {
@@ -105,6 +102,7 @@ router.put('/projects/:id', function (req, res) {
             res.json(err);
         })
 })
+
 
 router.delete('/projects/:id', function (res, req) {
     Project.findOneAndRemove({
